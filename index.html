@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bakery | Professional Menu Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =========================================
+           CSS STYLES (Small-to-Medium Professional Typography)
+           ========================================= */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg-creamy: #fdfaf4;
+            --card-bg: #ffffff;
+            --primary-brown: #8e4c17; 
+            --dark-bucket-bg: #3a2312;
+            --badge-red: #e74c3c;
+            --text-main: #2b2b2b;
+            --text-muted: #5e5e5e;
+            --border-light: #ece0d1;
+            --success-green: #2ecc71;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.92rem; /* Clean small-to-medium baseline */
+        }
+
+        body {
+            background-color: var(--bg-creamy);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, .logo-brand {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ----- HEADER (Blue/Pink Area Reference) ----- */
+        header {
+            background-color: #ffffff;
+            padding: 10px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .header-left i {
+            font-size: 1.6rem;
+            color: var(--primary-brown);
+        }
+
+        .logo-brand {
+            font-size: 1.2rem;
+            line-height: 1.1;
+            color: var(--primary-brown);
+            font-weight: 700;
+        }
+
+        nav .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+        }
+
+        nav .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        nav .nav-links a:hover {
+            color: var(--primary-brown);
+        }
+
+        .nav-separator {
+            color: #ccc;
+            font-weight: 300;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .cart-wrapper {
+            position: relative;
+            color: var(--primary-brown);
+            font-size: 1.4rem;
+        }
+
+        .cart-count-badge {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background-color: var(--badge-red);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-meta-info {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        /* ----- HERO ----- */
+        .hero-banner {
+            height: 45vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), 
+                        url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 15px;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .hero-banner h1 span {
+            font-size: 2.2rem;
+            border-bottom: 2px solid white;
+            padding-bottom: 4px;
+        }
+
+        .hero-banner p {
+            font-size: 0.95rem;
+            max-width: 550px;
+            margin-bottom: 18px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .action-btn {
+            padding: 8px 22px;
+            background-color: var(--primary-brown);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .action-btn:hover {
+            background-color: #6e3911;
+        }
+
+        /* ----- CARD MENU GRID (Red Area Reference) ----- */
+        .catalog-container {
+            padding: 3rem 6%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-block {
+            margin-bottom: 3.5rem;
+        }
+
+        .category-title {
+            font-size: 1.6rem;
+            color: var(--primary-brown);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 6px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+            border: 1px solid #f0e6da;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding-bottom: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+
+        .prod-thumb {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .prod-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0 10px;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prod-price {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .buy-btn {
+            background-color: var(--primary-brown);
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            width: 85%;
+            margin: 0 auto;
+            transition: background 0.2s;
+        }
+
+        .buy-btn:hover {
+            background-color: #6e3911;
+        }
+
+        /* ----- DIALING MANUAL ORDERS ----- */
+        .phone-order-banner {
+            background-color: #f2ede4;
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px dashed var(--primary-brown);
+            border-bottom: 1px dashed var(--primary-brown);
+        }
+
+        .phone-order-banner h3 {
+            font-size: 1.3rem;
+            color: var(--primary-brown);
+            margin-bottom: 6px;
+        }
+
+        .phone-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4a2d18;
+            margin-top: 5px;
+            text-decoration: none;
+        }
+
+        /* ----- SHOPPING BUCKET (Green Area Reference) ----- */
+        .bucket-section {
+            background-color: var(--dark-bucket-bg);
+            color: #ffffff;
+            padding: 3.5rem 8%;
+        }
+
+        .bucket-wrapper {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .bucket-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .bucket-divider {
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 1rem;
+        }
+
+        .bucket-empty-status {
+            text-align: center;
+            font-style: italic;
+            color: #bfaea2;
+            padding: 1.5rem 0;
+        }
+
+        .bucket-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .bucket-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 2;
+        }
+
+        .bucket-img-preview {
+            width: 42px;
+            height: 42px;
+            border-radius: 4px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .bucket-item-title {
+            font-size: 0.9rem;
+            color: #f5eae1;
+        }
+
+        .bucket-qty-counter {
+            flex: 1;
+            text-align: center;
+            color: #d9c4b5;
+        }
+
+        .bucket-price-sum {
+            flex: 1;
+            text-align: right;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .bucket-billing-block {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .billing-item {
+            display: flex;
+            justify-content: flex-end;
+            gap: 25px;
+            margin-bottom: 6px;
+            color: #d9c4b5;
+        }
+
+        .discount-highlight {
+            color: var(--success-green);
+            font-weight: 600;
+            display: none;
+        }
+
+        .grand-total-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 25px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 12px;
+            color: white;
+        }
+
+        .checkout-action-btn {
+            display: block;
+            width: 100%;
+            max-width: 320px;
+            margin: 25px auto 0 auto;
+            padding: 12px;
+            background-color: #a05319;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+
+        .checkout-action-btn:hover {
+            background-color: #bc6523;
+        }
+
+        /* ----- CONTACT FOOTER ----- */
+        footer {
+            background-color: #27170b;
+            color: #c7b3a4;
+            padding: 2.5rem 5% 1rem 5%;
+            text-align: center;
+        }
+
+        .footer-grid-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .footer-column h4 {
+            color: white;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .footer-column p {
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .footer-column i {
+            color: var(--primary-brown);
+            margin-right: 4px;
+        }
+
+        .social-row {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-row a {
+            color: #c7b3a4;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+        }
+
+        .social-row a:hover {
+            color: white;
+        }
+
+        .system-copyright {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 15px;
+            font-size: 0.8rem;
+            color: #948073;
+        }
+
+        @media (max-width: 680px) {
+            header { flex-direction: column; gap: 10px; }
+            nav .nav-links { gap: 8px; font-size: 0.85rem; }
+            .bucket-row { flex-direction: column; text-align: center; gap: 6px; }
+            .bucket-left { flex-direction: column; }
+            .bucket-price-sum { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Configured to match reference Image 1000000595.jpg -->
+    <header>
+        <a href="#" class="header-left">
+            <i class="fa-solid fa-wheat-awn"></i>
+            <div class="logo-brand">My Bakery</div>
+        </a>
+        
+        <nav>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <span class="nav-separator">|</span>
+                <a href="#menu-catalog">Menu</a>
+                <span class="nav-separator">|</span>
+                <a href="#menu-catalog">Custom Cakes</a>
+                <span class="nav-separator">|</span>
+                <a href="#contact-footer">Contact</a>
+            </div>
+        </nav>
+        
+        <div class="header-right" onclick="jumpToBucket()">
+            <div class="cart-wrapper">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="cart-count-badge" id="nav-badge-count">0</div>
+            </div>
+            <div class="cart-meta-info">
+                <span id="nav-strings">0 items</span><br>
+                <span id="nav-total-price">($0.00)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Display Context -->
+    <section id="home" class="hero-banner">
+        <h1 id="time-greeting"><span>Good Morning,</span><br>Welcome to My Bakery</h1>
+        <p>Artisan loaves, delicate layered pastries, and custom gourmet creations whipped up around the clock by master bakers.</p>
+        <button class="action-btn" onclick="jumpToMenu()">Explore Our Menu</button>
+    </section>
+
+    <!-- 28 Items Menu Catalog Categorized (Red Area Reference) -->
+    <section id="menu-catalog" class="catalog-container">
+        
+        <!-- Category 1: Artisan Loaves -->
+        <div class="category-block">
+            <h2 class="category-title">Artisan Crust Breads</h2>
+            <div class="products-grid" id="breads-grid"></div>
+        </div>
+
+        <!-- Category 2: Decadent Pastries -->
+        <div class="category-block">
+            <h2 class="category-title">Decadent Pastries & Danishes</h2>
+            <div class="products-grid" id="pastries-grid"></div>
+        </div>
+
+        <!-- Category 3: Signature Cakes -->
+        <div class="category-block">
+            <h2 class="category-title">Gourmet Signature Cakes</h2>
+            <div class="products-grid" id="cakes-grid"></div>
+        </div>
+
+        <!-- Category 4: Cookies & Sweet Confections -->
+        <div class="category-block">
+            <h2 class="category-title">Cookies & Fine Confections</h2>
+            <div class="products-grid" id="confections-grid"></div>
+        </div>
+
+    </section>
+
+    <!-- Manual Phone Line Block Connection -->
+    <section class="phone-order-banner">
+        <h3>Prefer Ordering Over the Phone?</h3>
+        <p>For instant customized catering arrays, custom messages, or manual checkout help, dial direct:</p>
+        <a href="tel:5551232253" class="phone-link">
+            <i class="fa-solid fa-phone-flip"></i> (555) 123-BAKE
+        </a>
+    </section>
+
+    <!-- Dark Brown Bucket Terminal (Green Area Reference) -->
+    <section id="bucket-terminal" class="bucket-section">
+        <div class="bucket-wrapper">
+            <h2>Your Shopping Bag</h2>
+            <div class="bucket-divider"></div>
+            
+            <div id="bucket-elements-list">
+                <div class="bucket-empty-status">Your bag is currently empty.</div>
+            </div>
+
+            <div class="bucket-billing-block">
+                <div class="billing-item">
+                    <span>Subtotal:</span>
+                    <span id="bill-subtotal">$0.00</span>
+                </div>
+                
+                <!-- Automated 5% Discount Trigger Box -->
+                <div class="billing-item discount-highlight" id="discount-indicator">
+                    <span>Bulk Bonus (5% off over $50!):</span>
+                    <span id="bill-deduction">-$0.00</span>
+                </div>
+
+                <div class="grand-total-row">
+                    <span>Total:</span>
+                    <span id="bill-final-total">$0.00</span>
+                </div>
+
+                <button class="checkout-action-btn" onclick="processCheckout()">Checkout</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer System Configuration -->
+    <footer id="contact-footer">
+        <div class="footer-grid-info">
+            <div class="footer-column">
+                <h4>Our Location</h4>
+                <p><i class="fa-solid fa-map-pin"></i> 742 Evergreen Terrace</p>
+                <p>Bakery District, NY 10021</p>
+            </div>
+            <div class="footer-column">
+                <h4>Support & Orders</h4>
+                <p><i class="fa-solid fa-phone"></i> (555) 123-BAKE</p>
+                <p><i class="fa-solid fa-envelope"></i> production@mybakeryfake.com</p>
+            </div>
+            <div class="footer-column">
+                <h4>Operating Hours</h4>
+                <p>Mon - Fri: 5:00 AM - 6:00 PM</p>
+                <p>Sat - Sun: 6:00 AM - 4:00 PM</p>
+            </div>
+            <div class="footer-column">
+                <h4>Connect With Us</h4>
+                <div class="social-row">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="system-copyright">
+            &copy; <span id="current-calendar-year"></span> My Bakery Corp. Constructed for active front-end system simulation.
+        </div>
+    </footer>
+
+    <!-- =========================================
+         JAVASCRIPT ENGINE (Interactive State Logic)
+         ========================================= */ -->
+    <script>
+        // Data Vault containing exactly 28 unique sequential items 
+        const productVault = [
+            // Category: breads (7 Items)
+            { id: 1, type: "breads", name: "Classic Sourdough Loaf", price: 7.00, img: "https://images.unsplash.com/photo-1585478259715-876acc5be8eb?w=250&q=80" },
+            { id: 2, type: "breads", name: "Rustic French Baguette", price: 4.00, img: "https://images.unsplash.com/photo-1597079910443-60c43fc4f729?w=250&q=80" },
+            { id: 3, type: "breads", name: "Dark Roasted Rye Loaf", price: 7.50, img: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=250&q=80" },
+            { id: 4, type: "breads", name: "Italian Herb Ciabatta", price: 5.25, img: "https://images.unsplash.com/photo-1534080391025-a7f0e6986240?w=250&q=80" },
+            { id: 5, type: "breads", name: "Gourmet Brioche Bun Set", price: 6.50, img: "https://images.unsplash.com/photo-1605697040925-af3f99052b61?w=250&q=80" },
+            { id: 6, type: "breads", name: "Braided Sweet Challah", price: 8.00, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=250&q=80" },
+            { id: 7, type: "breads", name: "Multi-Grain Harvest Loaf", price: 6.75, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=250&q=80" },
+
+            // Category: pastries (7 Items)
+            { id: 8, type: "pastries", name: "Chocolate Almond Croissant", price: 5.50, img: "https://images.unsplash.com/photo-1549903072-7e6e0d23fbce?w=250&q=80" },
+            { id: 9, type: "pastries", name: "Blueberry Crumble Muffin", price: 4.00, img: "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=250&q=80" },
+            { id: 10, type: "pastries", name: "Glazed Cinnamon Roll", price: 4.50, img: "https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=250&q=80" },
+            { id: 11, type: "pastries", name: "Strawberry Cream Danish", price: 4.75, img: "https://images.unsplash.com/photo-1626844131082-256783844137?w=250&q=80" },
+            { id: 12, type: "pastries", name: "Golden Butter Croissant", price: 3.75, img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=250&q=80" },
+            { id: 13, type: "pastries", name: "Crisp Apple Turnover", price: 4.25, img: "https://images.unsplash.com/photo-1608039755401-742074f0548d?w=250&q=80" },
+            { id: 14, type: "pastries", name: "Raspberry Cream Scone", price: 3.95, img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=250&q=80" },
+
+            // Category: cakes (7 Items)
+            { id: 15, type: "cakes", name: "Triple Chocolate Mousse Slice", price: 9.50, img: "https://images.unsplash.com/photo-1578985545062-69928b1ea841?w=250&q=80" },
+            { id: 16, type: "cakes", name: "NY Raspberry Cheesecake", price: 8.50, img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=250&q=80" },
+            { id: 17, type: "cakes", name: "Red Velvet Velvet Cream", price: 7.25, img: "https://images.unsplash.com/photo-1614707682065-5ce85f2f1118?w=250&q=80" },
+            { id: 18, type: "cakes", name: "Classic Carrot Layer Cake", price: 7.00, img: "https://images.unsplash.com/photo-1622896784084-705e6b34d502?w=250&q=80" },
+            { id: 19, type: "cakes", name: "Victoria Strawberry Sponge", price: 8.00, img: "https://images.unsplash.com/photo-1464305795204-6f5bdf7aff22?w=250&q=80" },
+            { id: 20, type: "cakes", name: "Meyer Lemon Meringue Pie", price: 6.50, img: "https://images.unsplash.com/photo-1519869325930-281384150729?w=250&q=80" },
+            { id: 21, type: "cakes", name: "Gourmet Black Forest Slice", price: 7.75, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=250&q=80" },
+
+            // Category: confections (7 Items)
+            { id: 22, type: "confections", name: "Assorted Macarons (Pack of 6)", price: 13.00, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?w=250&q=80" },
+            { id: 23, type: "confections", name: "Fudge Chunk Walnut Brownie", price: 4.50, img: "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?w=250&q=80" },
+            { id: 24, type: "confections", name: "Traditional Chocolate Chip Cookie", price: 2.75, img: "https://images.unsplash.com/photo-1499636136210-6f4ce9127157?w=250&q=80" },
+            { id: 25, type: "confections", name: "Tangy Powdered Lemon Bar", price: 3.50, img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=250&q=80" },
+            { id: 26, type: "confections", name: "French Vanilla Cream Eclair", price: 5.00, img: "https://images.unsplash.com/photo-1612201142855-7873bc1661b4?w=250&q=80" },
+            { id: 27, type: "confections", name: "Salted Caramel Cupcake", price: 3.80, img: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=250&q=80" },
+            { id: 28, type: "confections", name: "Soft Oatmeal Raisin Chew", price: 2.75, img: "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=250&q=80" }
+        ];
+
+        let activeUserBag = [];
+
+        // Application Init
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('current-calendar-year').textContent = new Date().getFullYear();
+            setupGreetingHeader();
+            renderCatalogGrids();
+        });
+
+        // Set contextual greeting text matching reference image structures
+        function setupGreetingHeader() {
+            const currentHour = new Date().getHours();
+            const textTarget = document.getElementById('time-greeting');
+            let greetingStr = "Good Evening,";
+            
+            if (currentHour >= 5 && currentHour < 12) {
+                greetingStr = "Good Morning,";
+            } else if (currentHour >= 12 && currentHour < 17) {
+                greetingStr = "Good Afternoon,";
+            }
+            textTarget.innerHTML = `<span>${greetingStr}</span><br>Welcome to My Bakery`;
+        }
+
+        // Generate card layout arrays across DOM sectors matching the specified design
+        function renderCatalogGrids() {
+            const categoricIDs = ['breads', 'pastries', 'cakes', 'confections'];
+            
+            categoricIDs.forEach(catKey => {
+                const targetsDOM = document.getElementById(`${catKey}-grid`);
+                const segmentItems = productVault.filter(p => p.type === catKey);
+                
+                let catalogHTML = '';
+                segmentItems.forEach(prod => {
+                    catalogHTML += `
+                        <div class="product-card">
+                            <img src="${prod.img}" alt="${prod.name}" class="prod-thumb">
+                            <div class="prod-name">${prod.name}</div>
+                            <div class="prod-price">$${prod.price.toFixed(2)}</div>
+                            <button class="buy-btn" onclick="injectItemToBag(${prod.id}, this)">Add to Cart</button>
+                        </div>
+                    `;
+                });
+                targetsDOM.innerHTML = catalogHTML;
+            });
+        }
+
+        // Navigation anchors
+        function jumpToMenu() { document.getElementById('menu-catalog').scrollIntoView({ behavior: 'smooth' }); }
+        function jumpToBucket() { document.getElementById('bucket-terminal').scrollIntoView({ behavior: 'smooth' }); }
+
+        // Cart core operations
+        function injectItemToBag(prodID, elementBtn) {
+            // Instant graphical UI micro-feedback
+            const originalLabel = elementBtn.innerText;
+            elementBtn.innerText = "Added ✓";
+            elementBtn.style.backgroundColor = "#2ecc71";
+            setTimeout(() => {
+                elementBtn.innerText = originalLabel;
+                elementBtn.style.backgroundColor = "var(--primary-brown)";
+            }, 850);
+
+            const chosenObject = productVault.find(p => p.id === prodID);
+            const insideInstance = activeUserBag.find(bagItem => bagItem.id === prodID);
+
+            if (insideInstance) {
+                insideInstance.qty++;
+            } else {
+                activeUserBag.push({ ...chosenObject, qty: 1 });
+            }
+            recomputeCheckoutMetrics();
+        }
+
+        // Logic framework for updating the UI with item quantities and calculating discounts
+        function recomputeCheckoutMetrics() {
+            let runningSumUnits = 0;
+            let combinedSubtotal = 0;
+
+            activeUserBag.forEach(item => {
+                runningSumUnits += item.qty;
+                combinedSubtotal += (item.price * item.qty);
+            });
+
+            // Calculate 5% discount if subtotal exceeds $50
+            let mappedDeduction = 0;
+            const discountRowDOM = document.getElementById('discount-indicator');
+            
+            if (combinedSubtotal > 50) {
+                mappedDeduction = combinedSubtotal * 0.05;
+                discountRowDOM.style.display = 'flex';
+            } else {
+                discountRowDOM.style.display = 'none';
+            }
+
+            let absoluteFinalSum = combinedSubtotal - mappedDeduction;
+
+            // Header UI updates (matching the structural elements in image 1000000595.jpg)
+            document.getElementById('nav-badge-count').innerText = runningSumUnits;
+            document.getElementById('nav-strings').innerText = `${runningSumUnits} items`;
+            document.getElementById('nav-total-price').innerText = `($${absoluteFinalSum.toFixed(2)})`;
+
+            // Render shopping bucket list entries
+            const layoutListContainer = document.getElementById('bucket-elements-list');
+            
+            if (activeUserBag.length === 0) {
+                layoutListContainer.innerHTML = '<div class="bucket-empty-status">Your bag is currently empty.</div>';
+            } else {
+                let dynamicListRows = '';
+                activeUserBag.forEach(item => {
+                    let cumulativeLineCost = item.price * item.qty;
+                    dynamicListRows += `
+                        <div class="bucket-row">
+                            <div class="bucket-left">
+                                <img src="${item.img}" alt="${item.name}" class="bucket-img-preview">
+                                <div class="bucket-item-title">${item.name} (x${item.qty})</div>
+                            </div>
+                            <div class="bucket-qty-counter">x${item.qty}</div>
+                            <div class="bucket-price-sum">$${cumulativeLineCost.toFixed(2)}</div>
+                        </div>
+                    `;
+                });
+                layoutListContainer.innerHTML = dynamicListRows;
+            }
+
+            // Summary panels update
+            document.getElementById('bill-subtotal').innerText = `$${combinedSubtotal.toFixed(2)}`;
+            document.getElementById('bill-deduction').innerText = `-$${mappedDeduction.toFixed(2)}`;
+            document.getElementById('bill-final-total').innerText = `$${absoluteFinalSum.toFixed(2)}`;
+        }
+
+        // Simulated checkout trigger
+        function processCheckout() {
+            if (activeUserBag.length === 0) {
+                alert("Your shopping bag is completely empty! Add some treats before verifying.");
+                jumpToMenu();
+                return;
+            }
+            const processingPrice = document.getElementById('bill-final-total').innerText;
+            alert(`Order Accepted! A total charge of ${processingPrice} has been successfully simulated.\n\nThank you for choosing My Bakery!`);
+            activeUserBag = [];
+            recomputeCheckoutMetrics();
+            jumpToMenu();
+        }
+    </script>
+</body>
+</html>
