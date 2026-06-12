@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bakery | Freshly Baked Every Day</title>
+    <style>
+        /* =========================================
+           CSS STYLES (More than 10% of the code)
+           ========================================= */
+        
+        :root {
+            --primary-color: #d4a373;
+            --secondary-color: #faedcd;
+            --text-color: #333333;
+            --bg-color: #fefae0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        header {
+            background-color: #ffffff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #bc8a59;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .products h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin: 1rem 0;
+            color: var(--text-color);
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--secondary-color);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .contact form {
+            max-width: 500px;
+            margin: 2rem auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 5%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">My Bakery</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div style="font-weight: bold;">Cart: <span id="cart-count">0</span> items</div>
+    </header>
+
+    <section id="home" class="hero">
+        <h1 id="greeting-title">Welcome to My Bakery</h1>
+        <p>Artisan breads, decadent pastries, and custom cakes baked fresh daily with love and the finest ingredients.</p>
+        <button class="btn" onclick="scrollToMenu()">Explore Our Menu</button>
+    </section>
+
+    <section id="menu" class="products">
+        <h2>Our Bestsellers</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Sourdough Loaf</h3>
+                <p>Crispy on the outside, perfectly chewy on the inside.</p>
+                <span class="price">$6.50</span>
+                <button class="btn add-to-cart" data-item="Sourdough Loaf">Add to Cart</button>
+            </div>
+            <div class="card">
+                <h3>Chocolate Croissant</h3>
+                <p>Flaky, buttery pastry filled with rich dark chocolate.</p>
+                <span class="price">$4.00</span>
+                <button class="btn add-to-cart" data-item="Chocolate Croissant">Add to Cart</button>
+            </div>
+            <div class="card">
+                <h3>Blueberry Muffin</h3>
+                <p>Loaded with fresh blueberries and topped with streusel.</p>
+                <span class="price">$3.50</span>
+                <button class="btn add-to-cart" data-item="Blueberry Muffin">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Place a Custom Order</h2>
+        <p>Need a cake for a special event? Send us a message!</p>
+        <form id="order-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" rows="5" placeholder="Tell us what you are looking for..." required></textarea>
+            <button type="submit" class="btn">Send Request</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> My Bakery. All rights reserved.</p>
+        <p>123 Baker Street, Sweet Town</p>
+    </footer>
+
+    <script>
+        /* =========================================
+           JAVASCRIPT (More than 10% of the code)
+           ========================================= */
+        
+        // 1. Dynamic Greeting based on the time of day
+        document.addEventListener("DOMContentLoaded", () => {
+            const hour = new Date().getHours();
+            const titleElement = document.getElementById('greeting-title');
+            
+            if (hour < 12) {
+                titleElement.textContent = "Good Morning! Welcome to My Bakery";
+            } else if (hour < 18) {
+                titleElement.textContent = "Good Afternoon! Welcome to My Bakery";
+            } else {
+                titleElement.textContent = "Good Evening! Welcome to My Bakery";
+            }
+
+            // Set current year in footer dynamically
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+
+        // 2. Smooth Scrolling function for the Hero button
+        function scrollToMenu() {
+            const menuSection = document.getElementById('menu');
+            menuSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 3. Interactive Shopping Cart functionality
+        let cartCount = 0;
+        const cartDisplay = document.getElementById('cart-count');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const itemName = this.getAttribute('data-item');
+                cartCount++;
+                cartDisplay.textContent = cartCount;
+                
+                // Visual feedback
+                const originalText = this.textContent;
+                this.textContent = "Added!";
+                this.style.backgroundColor = "#2a9d8f";
+                
+                // Reset button text after 1.5 seconds
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.backgroundColor = "var(--primary-color)";
+                }, 1500);
+            });
+        });
+
+        // 4. Contact Form Validation and Submission Handling
+        const orderForm = document.getElementById('order-form');
+        
+        orderForm.addEventListener('submit', function(event) {
+            // Prevent the default page reload
+            event.preventDefault(); 
+
+            // Grab the values from the form
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Simple validation
+            if (name === "" || email === "" || message === "") {
+                alert("Please fill out all fields before submitting.");
+                return;
+            }
+
+            // Simulate sending the data
+            alert(`Thank you, ${name}! Your custom order request has been received. We will contact you at ${email} shortly.`);
+            
+            // Clear the form
+            orderForm.reset();
+        });
+    </script>
+</body>
+</html>
