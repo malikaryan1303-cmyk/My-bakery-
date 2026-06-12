@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bakery | Fresh Artisan Goods</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =========================================
+           CSS STYLES & LAYOUT
+           ========================================= */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg-light: #fdfaf6;
+            --header-bg: #ffffff;
+            --brand-brown: #8e4c17; 
+            --dark-brown: #3e2b20;
+            --badge-red: #e74c3c;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --success-green: #2ecc71;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, .logo-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ----- HEADER ----- */
+        header {
+            background-color: var(--header-bg);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-left i {
+            font-size: 2.2rem;
+            color: var(--brand-brown);
+            transform: rotate(-15deg);
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            line-height: 1.1;
+            color: var(--brand-brown);
+            font-weight: 700;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .cart-icon-container {
+            position: relative;
+            color: var(--brand-brown);
+            font-size: 1.8rem;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: var(--badge-red);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+        }
+
+        .cart-text-info {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            line-height: 1.2;
+        }
+
+        /* ----- HERO SECTION ----- */
+        .hero {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        /* Adjusted font sizes so they don't get cut off */
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem); 
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            display: block;
+            border-bottom: 2px solid white;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            max-width: 600px;
+            margin-bottom: 25px;
+        }
+
+        .btn-solid {
+            padding: 12px 30px;
+            background-color: var(--brand-brown);
+            color: white;
+            border: none;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-solid:hover {
+            background-color: #6d3910;
+        }
+
+        /* ----- LIST MENU SECTION ----- */
+        .menu-section {
+            padding: 4rem 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .menu-header h2 {
+            font-size: 2.8rem;
+            color: var(--brand-brown);
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.2s;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.01);
+            border-left: 5px solid var(--brand-brown);
+        }
+
+        .item-img {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-details h3 {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .item-details p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .item-action {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+            min-width: 100px;
+        }
+
+        .item-price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--brand-brown);
+        }
+
+        .add-btn {
+            background-color: var(--brand-brown);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .add-btn:hover { background-color: #6d3910; }
+
+        /* ----- MANUAL ORDERING SECTION ----- */
+        .manual-order {
+            background-color: #f0e6d6;
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 2px dashed #d1bfae;
+            border-bottom: 2px dashed #d1bfae;
+        }
+
+        .manual-order h2 {
+            font-size: 2rem;
+            color: var(--brand-brown);
+            margin-bottom: 10px;
+        }
+
+        .manual-order p {
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            color: var(--text-gray);
+        }
+
+        .phone-call-box {
+            display: inline-block;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--brand-brown);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* ----- SHOPPING BAG SECTION ----- */
+        .cart-section {
+            background-color: var(--dark-brown);
+            color: white;
+            padding: 4rem 5%;
+        }
+
+        .cart-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cart-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 1rem;
+        }
+
+        .empty-cart {
+            text-align: center;
+            font-style: italic;
+            color: #bbb;
+            padding: 2rem 0;
+        }
+
+        .cart-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cart-item-name { flex: 2; font-size: 1.1rem; }
+        .cart-item-qty { flex: 1; text-align: center; }
+        .cart-item-price { flex: 1; text-align: right; font-weight: bold; }
+
+        .cart-summary {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255,255,255,0.3);
+            text-align: right;
+            font-size: 1.2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-bottom: 10px;
+        }
+
+        .discount-text {
+            color: var(--success-green);
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+
+        .final-total {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 30px auto 0;
+            padding: 15px;
+            background-color: #b8621b; /* Brighter brown for call to action */
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .checkout-btn:hover { background-color: #d17526; }
+
+        /* ----- FOOTER ----- */
+        footer {
+            background-color: #2c1e16;
+            color: #d1bfae;
+            padding: 3rem 5% 1rem;
+            text-align: center;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col p { margin-bottom: 8px; }
+        .footer-col i { width: 25px; color: var(--brand-brown); }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .menu-item { flex-direction: column; align-items: flex-start; }
+            .item-img { width: 100%; height: 150px; }
+            .item-action { flex-direction: row; justify-content: space-between; width: 100%; align-items: center; }
+            .summary-row { justify-content: space-between; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="header-left">
+            <i class="fa-solid fa-wheat-awn"></i>
+            <div class="logo-text">My<br>Bakery</div>
+        </a>
+        
+        <div class="header-right" onclick="scrollToCart()">
+            <div class="cart-icon-container">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="cart-badge" id="nav-badge">0</div>
+            </div>
+            <div class="cart-text-info">
+                <span id="nav-items">0 items</span><br>
+                <span id="nav-price">($0.00)</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1 id="greeting-text"><span>Good Morning,</span><br>Welcome to My Bakery</h1>
+        <p>Artisan breads, decadent pastries, and custom cakes baked fresh daily with love and the finest ingredients.</p>
+        <button class="btn-solid" onclick="scrollToMenu()">Explore Our Menu</button>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <div class="menu-header">
+            <h2>Our Fresh Menu</h2>
+            <p>Select your items below to add them to your shopping bag.</p>
+        </div>
+        
+        <div class="menu-list" id="menu-list-container">
+            </div>
+    </section>
+
+    <section class="manual-order">
+        <h2>Custom or Bulk Order?</h2>
+        <p>If you prefer to order by phone, need a specialized custom cake, or want to place a large catering order, our bakers are ready to speak with you!</p>
+        <div class="phone-call-box">
+            <i class="fa-solid fa-phone-volume"></i> (555) 867-5309
+        </div>
+    </section>
+
+    <section id="cart" class="cart-section">
+        <div class="cart-container">
+            <h2>Your Shopping Bag</h2>
+            
+            <div id="cart-items-container">
+                <div class="empty-cart">Your bag is currently empty.</div>
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">$0.00</span>
+                </div>
+                
+                <div class="summary-row discount-text" id="discount-row">
+                    <span>Discount (5% off over $50!):</span>
+                    <span id="cart-discount">-$0.00</span>
+                </div>
+
+                <div class="summary-row final-total">
+                    <span>Total:</span>
+                    <span id="cart-final-total">$0.00</span>
+                </div>
+
+                <button class="checkout-btn" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Visit Us</h3>
+                <p><i class="fa-solid fa-location-dot"></i> 482 Baker Lane, Suite B</p>
+                <p style="padding-left: 25px;">Pastryville, NY 10021</p>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <p><i class="fa-solid fa-phone"></i> (555) 867-5309</p>
+                <p><i class="fa-solid fa-envelope"></i> hello@mybakeryfake.com</p>
+            </div>
+            <div class="footer-col">
+                <h3>Hours</h3>
+                <p>Mon-Fri: 6:00 AM - 4:00 PM</p>
+                <p>Sat-Sun: 7:00 AM - 2:00 PM</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; <span id="year"></span> My Bakery. All fictitious rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        /* =========================================
+           JAVASCRIPT LOGIC
+           ========================================= */
+
+        // Dynamic Greeting & Year
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('year').textContent = new Date().getFullYear();
+            const hour = new Date().getHours();
+            let greeting = "Good Evening,";
+            if (hour >= 5 && hour < 12) greeting = "Good Morning,";
+            else if (hour >= 12 && hour < 17) greeting = "Good Afternoon,";
+            document.getElementById('greeting-text').innerHTML = `<span>${greeting}</span><br>Welcome to My Bakery`;
+            
+            renderMenu();
+        });
+
+        function scrollToMenu() { document.getElementById('menu').scrollIntoView({ behavior: 'smooth' }); }
+        function scrollToCart() { document.getElementById('cart').scrollIntoView({ behavior: 'smooth' }); }
+
+        // Product Database
+        const products = [
+            { id: 1, name: "Classic Sourdough Loaf", price: 8.00, desc: "Crispy crust with a perfectly chewy, fermented center.", img: "https://images.unsplash.com/photo-1585478259715-876acc5be8eb?w=300&q=80" },
+            { id: 2, name: "Chocolate Almond Croissant", price: 5.50, desc: "Flaky buttery layers filled with rich dark chocolate.", img: "https://images.unsplash.com/photo-1549903072-7e6e0d23fbce?w=300&q=80" },
+            { id: 3, name: "Dozen Assorted Macarons", price: 24.00, desc: "A beautiful box of 12 handcrafted French macarons.", img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?w=300&q=80" },
+            { id: 4, name: "Blueberry Crumble Muffin", price: 4.50, desc: "Loaded with fresh berries and topped with streusel.", img: "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=300&q=80" },
+            { id: 5, name: "Rustic French Baguette", price: 4.00, desc: "Traditional Parisian style. Perfect for sandwiches.", img: "https://images.unsplash.com/photo-1597079910443-60c43fc4f729?w=300&q=80" },
+            { id: 6, name: "Whole NY Cheesecake", price: 35.00, desc: "Dense, creamy, rich classic 8-inch cheesecake.", img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=300&q=80" }
+        ];
+
+        let cart = [];
+
+        // Render List Menu
+        function renderMenu() {
+            const container = document.getElementById('menu-list-container');
+            let html = '';
+            products.forEach(p => {
+                html += `
+                    <div class="menu-item">
+                        <img src="${p.img}" alt="${p.name}" class="item-img">
+                        <div class="item-details">
+                            <h3>${p.name}</h3>
+                            <p>${p.desc}</p>
+                        </div>
+                        <div class="item-action">
+                            <div class="item-price">$${p.price.toFixed(2)}</div>
+                            <button class="add-btn" onclick="addToCart(${p.id}, this)">Add to Bag</button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Add to Cart
+        function addToCart(id, btn) {
+            // Button Feedback
+            const origText = btn.innerText;
+            btn.innerText = "Added!";
+            btn.style.backgroundColor = "#2ecc71";
+            setTimeout(() => {
+                btn.innerText = origText;
+                btn.style.backgroundColor = "var(--brand-brown)";
+            }, 1000);
+
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        // Update Cart & Calculate Discount Logic
+        function updateCartUI() {
+            // Calculate Base Totals
+            let totalItems = 0;
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                totalItems += item.qty;
+                subtotal += (item.price * item.qty);
+            });
+
+            // Calculate Discount (5% off if over $50)
+            let discountAmount = 0;
+            const discountRow = document.getElementById('discount-row');
+            
+            if (subtotal > 50) {
+                discountAmount = subtotal * 0.05;
+                discountRow.style.display = 'flex'; // Show discount row
+            } else {
+                discountRow.style.display = 'none'; // Hide discount row
+            }
+
+            let finalTotal = subtotal - discountAmount;
+
+            // Update Header
+            document.getElementById('nav-badge').innerText = totalItems;
+            document.getElementById('nav-items').innerText = `${totalItems} items`;
+            document.getElementById('nav-price').innerText = `($${finalTotal.toFixed(2)})`;
+
+            // Update Bucket / Cart Section
+            const cartContainer = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<div class="empty-cart">Your bag is currently empty.</div>';
+            } else {
+                let cartHTML = '';
+                cart.forEach(item => {
+                    let itemTotal = item.price * item.qty;
+                    cartHTML += `
+                        <div class="cart-row">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-qty">x${item.qty}</div>
+                            <div class="cart-item-price">$${itemTotal.toFixed(2)}</div>
+                        </div>
+                    `;
+                });
+                cartContainer.innerHTML = cartHTML;
+            }
+
+            // Update Summary Numbers
+            document.getElementById('cart-subtotal').innerText = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cart-discount').innerText = `-$${discountAmount.toFixed(2)}`;
+            document.getElementById('cart-final-total').innerText = `$${finalTotal.toFixed(2)}`;
+        }
+
+        // Checkout Alert
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Your bag is empty! Please select some items first.");
+                return;
+            }
+            const total = document.getElementById('cart-final-total').innerText;
+            alert(`Success! Your order total is ${total}.\n\n(This is a simulated checkout for the demo website)`);
+            cart = [];
+            updateCartUI();
+            scrollToMenu();
+        }
+    </script>
+</body>
+</html>
