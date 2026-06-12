@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bakery - Premium Artisan Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           GLOBAL STYLES & RESETS
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7;
+            color: #3E2718;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, .logo-text-top, .logo-text-bottom, .shopping-bag-section h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* =========================================
+           HEADER NAVIGATION (IMAGE MATCH)
+           ========================================= */
+        header {
+            background-color: #ffffff;
+            padding: 12px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #EFEAE4;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text-top {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8E5A36;
+            line-height: 1;
+        }
+
+        .logo-text-bottom {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8E5A36;
+            line-height: 1;
+        }
+
+        .logo-wheat-icon {
+            font-size: 1.8rem;
+            color: #8E5A36;
+            transform: rotate(15deg);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 12px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #8E5A36;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links li a:hover {
+            color: #3E2718;
+        }
+
+        .nav-pipe {
+            color: #D1C7BD;
+            font-weight: 300;
+            user-select: none;
+        }
+
+        .header-right-cart {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-align: right;
+        }
+
+        .cart-icon-container {
+            position: relative;
+        }
+
+        .cart-icon-container i {
+            font-size: 1.4rem;
+            color: #3E2718;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #E74C3C;
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-text-meta {
+            font-size: 0.8rem;
+            color: #3E2718;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* =========================================
+           HERO SECTION WITH SEPARATOR LINE
+           ========================================= */
+        .hero-banner {
+            position: relative;
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
+                        url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .hero-banner h1.greeting {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        /* Exact matching white line divider beneath greeting */
+        .hero-divider-line {
+            width: 100%;
+            max-width: 440px;
+            height: 2px;
+            background-color: #ffffff;
+            margin: 10px 0 20px 0;
+        }
+
+        .hero-banner h1.main-title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .hero-banner p {
+            font-size: 1rem;
+            max-width: 600px;
+            margin-bottom: 25px;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .explore-btn {
+            background-color: #9A633A;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+            transition: background 0.2s;
+        }
+
+        .explore-btn:hover {
+            background-color: #7A4A26;
+        }
+
+        /* =========================================
+           PRODUCT SECTION & INTERACTIVE GRID (28 ITEMS)
+           ========================================= */
+        .catalog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 4%;
+        }
+
+        .category-block {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-size: 2.2rem;
+            color: #5C3A21;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #EFEAE4;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .product-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2C1A0E;
+            margin-bottom: 6px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-price {
+            font-size: 0.95rem;
+            color: #7A4A26;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .add-cart-btn {
+            background: linear-gradient(180deg, #9A633A 0%, #7A4A26 100%);
+            color: #ffffff;
+            border: 1px solid #633B1E;
+            padding: 7px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            width: 100%;
+            font-weight: 500;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+            transition: filter 0.2s;
+        }
+
+        .add-cart-btn:hover {
+            filter: brightness(1.08);
+        }
+
+        /* =========================================
+           SHOPPING BAG CONTAINER TERMINAL (IMAGE MATCH)
+           ========================================= */
+        .shopping-bag-section {
+            background-color: #3D2516;
+            color: #ffffff;
+            padding: 4rem 6%;
+        }
+
+        .bag-inner-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .shopping-bag-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .bag-item-list {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .bag-empty-state {
+            text-align: center;
+            font-style: italic;
+            color: #B5A296;
+            padding: 3rem 0;
+            font-size: 1rem;
+        }
+
+        /* Exact matching structure of basket items from image */
+        .bag-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bag-item-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 2;
+        }
+
+        .bag-item-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .bag-item-title {
+            font-size: 0.95rem;
+            color: #FFF3EB;
+        }
+
+        .bag-item-qty-col {
+            flex: 1;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #D1C4BC;
+        }
+
+        .bag-item-total-col {
+            flex: 1;
+            text-align: right;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .bag-totals-box {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 30px;
+            margin-top: 20px;
+            padding-top: 15px;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .bag-totals-label {
+            color: #D1C4BC;
+        }
+
+        .checkout-submit-btn {
+            display: block;
+            width: 100%;
+            max-width: 320px;
+            margin: 25px auto 0 auto;
+            padding: 12px;
+            background: linear-gradient(180deg, #965B30 0%, #734320 100%);
+            border: 1px solid #5A3317;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: filter 0.2s;
+        }
+
+        .checkout-submit-btn:hover {
+            filter: brightness(1.1);
+        }
+
+        /* =========================================
+           CONTACT US & FOOTER SECTIONS
+           ========================================= */
+        .contact-us-section {
+            background-color: #FAF6F0;
+            padding: 3rem 6%;
+            text-align: center;
+        }
+
+        .contact-us-section h2 {
+            font-size: 1.8rem;
+            color: #5C3A21;
+            margin-bottom: 1.8rem;
+        }
+
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #3E2718;
+            font-weight: 500;
+        }
+
+        .contact-node i {
+            font-size: 1.5rem;
+            color: #9A633A;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-row a {
+            color: #3E2718;
+            font-size: 1.4rem;
+            transition: color 0.2s;
+        }
+
+        .social-row a:hover {
+            color: #9A633A;
+        }
+
+        footer {
+            background-color: #321D11;
+            color: #B5A296;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-right-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-right-links a {
+            color: #B5A296;
+            text-decoration: none;
+        }
+
+        .footer-right-links a:hover {
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .hero-banner h1.greeting { font-size: 2.2rem; }
+            .hero-banner h1.main-title { font-size: 1.8rem; }
+            .bag-row { flex-direction: column; gap: 10px; text-align: center; }
+            .bag-item-left { flex-direction: column; }
+            .bag-item-total-col { text-align: center; }
+            footer { flex-direction: column; gap: 10px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="header-left">
+            <div class="logo-container">
+                <span class="logo-text-top">My</span>
+                <span class="logo-text-bottom">Bakery</span>
+            </div>
+            <i class="fa-solid fa-wheat-awn logo-wheat-icon"></i>
+        </a>
+        
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <span class="nav-pipe">|</span>
+                <li><a href="#menu">Menu</a></li>
+                <span class="nav-pipe">|</span>
+                <li><a href="#menu">Custom Cakes</a></li>
+                <span class="nav-pipe">|</span>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="header-right-cart" onclick="scrollToCartBucket()">
+            <div class="cart-icon-container">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="cart-badge" id="global-badge-counter">0</div>
+            </div>
+            <div class="cart-text-meta">
+                <span id="meta-qty-label">0 items</span><br>
+                <span id="meta-price-label">($0.00)</span>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero-banner">
+        <h1 class="greeting">Good Morning,</h1>
+        <div class="hero-divider-line"></div>
+        <h1 class="main-title">Welcome to My Bakery</h1>
+        <p>Artisan breads, decadent pastries, and custom cakes baked fresh daily with love and the finest ingredients.</p>
+        <button class="explore-btn" onclick="scrollToMenuCatalog()">Explore Our Menu</button>
+    </section>
+
+    <main class="catalog-container" id="menu">
+        
+        <div class="category-block">
+            <h2 class="category-title">Our Bestsellers</h2>
+            <div class="products-grid" id="grid-bestsellers"></div>
+        </div>
+
+        <div class="category-block">
+            <h2 class="category-title">Artisan Crust Breads</h2>
+            <div class="products-grid" id="grid-breads"></div>
+        </div>
+
+        <div class="category-block">
+            <h2 class="category-title">Decadent Pastries</h2>
+            <div class="products-grid" id="grid-pastries"></div>
+        </div>
+
+        <div class="category-block">
+            <h2 class="category-title">Gourmet Cakes & Treats</h2>
+            <div class="products-grid" id="grid-confections"></div>
+        </div>
+
+    </main>
+
+    <section class="shopping-bag-section" id="shopping-bag-panel">
+        <div class="bag-inner-wrapper">
+            <h2>Your Shopping Bag</h2>
+            
+            <div id="bag-dynamic-root">
+                <div class="bag-empty-state">Your bag is currently empty.</div>
+            </div>
+
+            <div class="bag-totals-box">
+                <span class="bag-totals-label">Total:</span>
+                <span id="bag-computed-total">$0.00</span>
+            </div>
+
+            <button class="checkout-submit-btn" onclick="executeCheckoutSequence()">Checkout</button>
+        </div>
+    </section>
+
+    <section class="contact-us-section" id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-grid">
+            <div class="contact-node">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>123 Baker Street,<br>Sweet Town, MA 01234</span>
+            </div>
+            <div class="contact-node">
+                <i class="fa-solid fa-envelope"></i>
+                <span>orders@mybakery.com</span>
+            </div>
+            <div class="contact-node">
+                <i class="fa-solid fa-phone"></i>
+                <span>(555) 123-BAKE</span>
+            </div>
+            <div class="contact-node">
+                <div class="social-row">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div>&copy; Copyright 2026 All rights reserved.</div>
+        <div class="footer-right-links">
+            <a href="#home">Home</a> | <a href="#menu">Links</a> | <a href="#contact">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Data registry containing exactly 28 explicit unique bakery items
+        const itemRegistry = [
+            // Bestsellers (Items 1-4 match your exact images perfectly)
+            { id: 1, category: "bestsellers", name: "Classic Sourdough Loaf", price: 7.00, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=350&q=80" },
+            { id: 2, category: "bestsellers", name: "Chocolate Almond Croissant", price: 5.50, img: "https://images.unsplash.com/photo-1549903072-7e6e0d23fbce?w=350&q=80" },
+            { id: 3, category: "bestsellers", name: "Blueberry Crumble Muffin", price: 4.00, img: "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=350&q=80" },
+            { id: 4, category: "bestsellers", name: "Triple Chocolate Mousse Cake Slice", price: 9.50, img: "https://images.unsplash.com/photo-1578985545062-69928b1ea841?w=350&q=80" },
+            
+            // Artisan Breads (Items 5-12)
+            { id: 5, category: "breads", name: "Rustic French Baguette", price: 3.80, img: "https://images.unsplash.com/photo-1597079910443-60c43fc4f729?w=350&q=80" },
+            { id: 6, category: "breads", name: "Dark Roasted German Rye", price: 6.50, img: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=350&q=80" },
+            { id: 7, category: "breads", name: "Olive Rosemary Ciabatta", price: 5.25, img: "https://images.unsplash.com/photo-1534080391025-a7f0e6986240?w=350&q=80" },
+            { id: 8, category: "breads", name: "Fluffy Golden Brioche Loaf", price: 7.50, img: "https://images.unsplash.com/photo-1605697040925-af3f99052b61?w=350&q=80" },
+            { id: 9, category: "breads", name: "Traditional Sesame Challah", price: 6.90, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=350&q=80" },
+            { id: 10, category: "breads", name: "Whole Wheat Multi-Seed Loaf", price: 5.80, img: "https://images.unsplash.com/photo-1585478259715-876acc5be8eb?w=350&q=80" },
+            { id: 11, category: "breads", name: "Toasted Walnut Raisin Bread", price: 7.20, img: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=350&q=80" },
+            { id: 12, category: "breads", name: "Sourdough Boule Bouchee", price: 8.00, img: "https://images.unsplash.com/photo-1589415477580-301388ef3e7e?w=350&q=80" },
+
+            // Pastries (Items 13-20)
+            { id: 13, category: "pastries", name: "Glazed Cinnamon Sugar Roll", price: 4.50, img: "https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=350&q=80" },
+            { id: 14, category: "pastries", name: "Strawberry Custard Tartlet", price: 4.80, img: "https://images.unsplash.com/photo-1626844131082-256783844137?w=350&q=80" },
+            { id: 15, category: "pastries", name: "Flaky Pure Butter Croissant", price: 3.50, img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=350&q=80" },
+            { id: 16, category: "pastries", name: "Spiced Apple Turnover Slices", price: 4.25, img: "https://images.unsplash.com/photo-1608039755401-742074f0548d?w=350&q=80" },
+            { id: 17, category: "pastries", name: "Wildberry Glazed Scone", price: 3.95, img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=350&q=80" },
+            { id: 18, category: "pastries", name: "Classic French Pain au Chocolat", price: 4.75, img: "https://images.unsplash.com/photo-1612201142855-7873bc1661b4?w=350&q=80" },
+            { id: 19, category: "pastries", name: "Cream-Filled Choux Swan", price: 5.00, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=350&q=80" },
+            { id: 20, category: "pastries", name: "Pecan Caramel Sticky Bun", price: 4.90, img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=350&q=80" },
+
+            // Cakes & Confections (Items 21-28)
+            { id: 21, category: "confections", name: "NY Raspberry Cheesecake Slice", price: 8.50, img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=350&q=80" },
+            { id: 22, category: "confections", name: "Red Velvet Celebration Slice", price: 7.80, img: "https://images.unsplash.com/photo-1614707682065-5ce85f2f1118?w=350&q=80" },
+            { id: 23, category: "confections", name: "Meyer Lemon Sponge Layer", price: 7.25, img: "https://images.unsplash.com/photo-1519869325930-281384150729?w=350&q=80" },
+            { id: 24, category: "confections", name: "Premium French Macarons (Box of 6)", price: 13.00, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?w=350&q=80" },
+            { id: 25, category: "confections", name: "Fudge Chocolate Walnut Brownie", price: 4.50, img: "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?w=350&q=80" },
+            { id: 26, category: "confections", name: "Jumbo Soft Fudge Cookie", price: 3.00, img: "https://images.unsplash.com/photo-1499636136210-6f4ce9127157?w=350&q=80" },
+            { id: 27, category: "confections", name: "Salted Caramel Velvet Cupcake", price: 3.90, img: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=350&q=80" },
+            { id: 28, category: "confections", name: "Traditional Vanilla Bean Eclair", price: 5.20, img: "https://images.unsplash.com/photo-1622896784084-705e6b34d502?w=350&q=80" }
+        ];
+
+        let stateCart = [];
+
+        // Application Setup Bootloader
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDisplayMatrix();
+        });
+
+        function scrollToMenuCatalog() { document.getElementById('menu').scrollIntoView({ behavior: 'smooth' }); }
+        function scrollToCartBucket() { document.getElementById('shopping-bag-panel').scrollIntoView({ behavior: 'smooth' }); }
+
+        // Render Cards Interface Elements
+        function renderDisplayMatrix() {
+            const keys = ['bestsellers', 'breads', 'pastries', 'confections'];
+            
+            keys.forEach(categoryKey => {
+                const containerDom = document.getElementById(`grid-${categoryKey}`);
+                const productsSubset = itemRegistry.filter(p => p.category === categoryKey);
+                
+                let chunkHTML = '';
+                productsSubset.forEach(product => {
+                    chunkHTML += `
+                        <div class="product-card">
+                            <img src="${product.img}" alt="${product.name}">
+                            <h3>${product.name}</h3>
+                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            <button class="add-cart-btn" onclick="executeAddToCart(${product.id}, this)">Add to Cart</button>
+                        </div>
+                    `;
+                });
+                containerDom.innerHTML = chunkHTML;
+            });
+        }
+
+        // Functional Cart Add Command Thread
+        function executeAddToCart(id, buttonElement) {
+            // Visual success state mutation
+            const originalLabel = buttonElement.innerText;
+            buttonElement.innerText = "Added ✓";
+            buttonElement.style.background = "#27AE60";
+            buttonElement.style.borderColor = "#219653";
+            
+            setTimeout(() => {
+                buttonElement.innerText = originalLabel;
+                buttonElement.style.background = "linear-gradient(180deg, #9A633A 0%, #7A4A26 100%)";
+                buttonElement.style.borderColor = "#633B1E";
+            }, 700);
+
+            const matchedProduct = itemRegistry.find(item => item.id === id);
+            const absoluteExistInstance = stateCart.find(record => record.id === id);
+
+            if (absoluteExistInstance) {
+                absoluteExistInstance.qty++;
+            } else {
+                stateCart.push({ ...matchedProduct, qty: 1 });
+            }
+
+            evaluateSystemTotals();
+        }
+
+        // Perform recalculations and render the dark brown bucket rows matching your screenshot
+        function evaluateSystemTotals() {
+            let runningSumQty = 0;
+            let runningSumFinancial = 0;
+
+            stateCart.forEach(row => {
+                runningSumQty += row.qty;
+                runningSumFinancial += (row.price * row.qty);
+            });
+
+            // Write back value tokens to top navigation panel
+            document.getElementById('global-badge-counter').innerText = runningSumQty;
+            document.getElementById('meta-qty-label').innerText = `${runningSumQty} items`;
+            document.getElementById('meta-price-label').innerText = `($${runningSumFinancial.toFixed(2)})`;
+
+            // Render shopping bag view blocks
+            const rootBucketContainer = document.getElementById('bag-dynamic-root');
+            
+            if (stateCart.length === 0) {
+                rootBucketContainer.innerHTML = `<div class="bag-empty-state">Your bag is currently empty.</div>`;
+            } else {
+                let dynamicRowsHTML = '<div class="bag-item-list">';
+                stateCart.forEach(entry => {
+                    let totalRowPrice = entry.price * entry.qty;
+                    dynamicRowsHTML += `
+                        <div class="bag-row">
+                            <div class="bag-item-left">
+                                <img src="${entry.img}" alt="${entry.name}" class="bag-item-img">
+                                <div class="bag-item-title">${entry.name} (x${entry.qty})</div>
+                            </div>
+                            <div class="bag-item-qty-col">x${entry.qty}</div>
+                            <div class="bag-item-total-col">$${totalRowPrice.toFixed(2)}</div>
+                        </div>
+                    `;
+                });
+                dynamicRowsHTML += '</div>';
+                rootBucketContainer.innerHTML = dynamicRowsHTML;
+            }
+
+            // Write final summary figure tokens
+            document.getElementById('bag-computed-total').innerText = `$${runningSumFinancial.toFixed(2)}`;
+        }
+
+        function executeCheckoutSequence() {
+            if (stateCart.length === 0) {
+                alert("Your shopping bag is empty! Fill it up from our delicious 28 items selection panels above.");
+                scrollToMenuCatalog();
+                return;
+            }
+            const processedTotal = document.getElementById('bag-computed-total').innerText;
+            alert(`Order Placed Successfully!\n\nTotal Paid: ${processedTotal}\nThank you for choosing My Bakery!`);
+            stateCart = [];
+            evaluateSystemTotals();
+            scrollToMenuCatalog();
+        }
+    </script>
+</body>
+</html>
